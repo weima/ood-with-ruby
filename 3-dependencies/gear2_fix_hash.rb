@@ -14,12 +14,11 @@ end
 class Gear
   attr_reader :chainring, :cog, :wheel
 
-  # Wheel is injected into Gear
-  def initialize(chainring, cog, wheel)
-    @chainring = chainring
-    @cog = cog
-
-    @wheel = wheel
+  # arguments are passed in as hash, order can be preserved
+  def initialize(args)
+    @chainring = args[:chainring]
+    @cog = args[:cog]
+    @wheel = args[:wheel]
   end
 
   def ratio
@@ -31,13 +30,10 @@ class Gear
     ratio * diameter
   end
 
-  # dependency removed
-  # still send message to someone other than `self`
-  # but we isolated it into this method
   def diameter
     wheel.diameter
   end
 end
 
-inches = Gear.new(21, 11, Wheel.new(26, 1.6)).gear_inches
+inches = Gear.new(:chainring => 21, :cog => 11, :wheel => Wheel.new(26, 1.6)).gear_inches
 puts("Inches is " + inches.to_s)

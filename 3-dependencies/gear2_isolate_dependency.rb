@@ -26,8 +26,14 @@ class Gear
   end
 
   def gear_inches
+    ratio * diameter
+  end
+
+  def diameter
     # dependency removed
-    ratio * wheel.diameter
+    # still send message to someone other than `self`
+    # but we isolated it into this method
+    wheel.diameter
   end
 end
 
